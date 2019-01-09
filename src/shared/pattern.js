@@ -1,4 +1,6 @@
 /* @jsx jsx */
+import { jsx } from '@emotion/core'
+import React from 'react'
 import styled from '@emotion/styled'
 //import { ThemeProvider } from 'emotion-theming'
 
@@ -35,7 +37,23 @@ const PrimaryButton = styled(Button)({
     }
 })
 
+const IsolateContainer = ({children, ...props}) => {
+    return (
+        <div
+            css={{
+                marginTop: 300,
+                display: 'flex',
+                justifyContent: 'center'
+            }}    
+            {...props}
+        >
+            <div>{children}</div>
+        </div>
+    )
+}
+
 export {
     Button,
-    PrimaryButton
+    PrimaryButton,
+    IsolateContainer
 }
