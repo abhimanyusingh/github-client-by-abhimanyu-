@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import * as GithubContext from './github-client.js'
-import { IsolateContainer } from './shared/pattern'
+import { IsolateContainer, LoadingMessagePage } from './shared/pattern'
 import { ErrorBoundary } from 'react-error-boundary'
 import {Router} from '@reach/router'
+import loadable from 'react-loadable'
 
 const fallbackCompoenent = ({error}) => {
     return (
@@ -16,9 +17,25 @@ const fallbackCompoenent = ({error}) => {
     )
 }
 
-const Home = lodable({
-    
+const LoadingFallback = ({error, }) => {
+    if(error) {
+        throw error
+    }
+
+    return <LoadingMessagePage>Loading Application</LoadingMessagePage>
+}
+
+const Home = loadable({
+    loader: () => import('./screens/home'),
+    loading: LoadingFallback
 })
+
+const User = loadable({
+    loader: () => import('./screens/user'),
+    loading: LoadingFallback
+})
+
+
 function App() {
     return (
         <div>
@@ -26,6 +43,7 @@ function App() {
             <ErrorBoundary FallbackComponent={fallbackCompoenent}>
                 <Router>
                     <Home path="/"></Home>
+                    <User path="/:username"></User>
                 </Router>
             </ErrorBoundary>
          </GithubContext.Provider>

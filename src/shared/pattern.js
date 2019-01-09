@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core'
 import React from 'react'
 import styled from '@emotion/styled'
+import {Link} from '@reach/router'
 //import { ThemeProvider } from 'emotion-theming'
 
 const Button = styled.button({
@@ -37,6 +38,51 @@ const PrimaryButton = styled(Button)({
     }
 })
 
+const Text =  styled.span({
+    fontSize: '14px'
+})
+
+const Input = styled.input({
+    display: 'block',
+    width:'100%',
+    height:'34px',
+    padding:'6px 12px',
+    fontSize:'14px',
+    lineHeight: '1.4',
+    color:'#555',
+    backgroundColor: '#fff',
+    borderColor: '1px solid #ccc',
+    backgroundImage: 'None',
+    borderRadius: '4px',
+    boxShadow: 'inset 0 1px 1px rgba(0,0,0,.075)',
+    transition: 'border-color ease-in-out .15s, box-shadow ease-in-out .15s',
+  ':focus': {
+    borderColor: '#66afe9',
+    outline: '0',
+    boxShadow:
+      'inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6)',
+  },
+
+})
+
+const ButtonLink = Button.withComponent(Link);
+const PrimaryButtonLink =PrimaryButton.withComponent(Link)
+
+
+const LoadingMessagePage = ({children}) => {
+    return (
+        <IsolateContainer>
+            <div css={{
+                textAlign: 'center'
+            }}>
+            <p>
+                <Text size="subheading">{children}</Text>
+            </p>
+            </div>
+        </IsolateContainer>
+    )
+}
+
 const IsolateContainer = ({children, ...props}) => {
     return (
         <div
@@ -55,5 +101,10 @@ const IsolateContainer = ({children, ...props}) => {
 export {
     Button,
     PrimaryButton,
-    IsolateContainer
+    IsolateContainer,
+    LoadingMessagePage,
+    Input,
+    ButtonLink,
+    PrimaryButtonLink,
+    Text
 }
